@@ -1,0 +1,84 @@
+﻿@model CarManagerWebApplication.Models.WrapCarModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Cars", FormMethod.Post, new { id = "editForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (Model.DoesCarExist)
+        {
+            <h4>
+                @string.Format("Edit details fo car {0}", Model.Car.Number)
+            </h4>
+        }
+        else
+        {
+            <h4>
+                Add a New Car
+            </h4>
+        }
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Car.Id)
+        @Html.HiddenFor(model => model.CompanyId)
+        <div class="well bs-component">
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Driver.Name, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Driver.Name, new { @class = "form-control", @placeholder = "Name" })
+                    @Html.ValidationMessageFor(model => model.Driver.Name)
+                </div>
+            </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Car.Number, new { @class = "col-lg-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Car.Number, new { @class = "form-control", @placeholder = "Number" })
+                        @Html.ValidationMessageFor(model => model.Car.Number)
+                    </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Car.Model, new { @class = "col-lg-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Car.Model, new { @class = "form-control", @placeholder = "Model" })
+                    @Html.ValidationMessageFor(model => model.Car.Model)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" id="save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<a href="javascript:history.back()"><< Go Back To Cars</a>
+
+<div style="display:none">
+    @Html.ActionLink("Cars", "Index", "Cars", null, new { id = "backLink" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#editForm').submit(function () {
+            $.SaveDataOnFormSubmit({
+                form: $('#editForm'),
+                returnToUrl: $('#backLink').attr('href'),
+                dialog: {
+                    title: 'Save Car',
+                    message: 'Saving Car',
+                    errorMessage: 'Error occured while saving car.'
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

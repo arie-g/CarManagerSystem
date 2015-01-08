@@ -1,0 +1,54 @@
+﻿@model CarManagerWebApplication.Models.WrapWaitingForApproveModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("dummy", "WaitingForApprove", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <h3>Please Drivers to approve.</h3>
+    <div class="form-horizontal">
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group">
+                    <label for="drivers" class="col-lg-2 control-label">Drivers</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(m => m.SelectedDrivers, new MultiSelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button value='@Url.Action("ApproveAdmin")' class="btn btn-primary" type="button">Approve As Admin</button>
+                        <button value='@Url.Action("ApproveDriver")' class="btn btn-primary" type="button">Approve As Driver</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#submitForm .btn').click(function () {
+            var url = $(this).attr('value');
+            $('#submitForm').attr('action', url).submit();
+        });
+
+        $('#submitForm').submit(function () {
+            $.SaveDataOnFormSubmit({
+                form: $('#submitForm'),
+                returnToUrl: '#',
+                dialog: {
+                    title: 'Approve User',
+                    message: 'Approving user',
+                    errorMessage: 'Error occured Approving user.'
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

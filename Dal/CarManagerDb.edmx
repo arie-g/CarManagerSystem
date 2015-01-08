@@ -1,0 +1,1219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarManagerDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="LastPermissionUpdate" Type="datetime" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarsToDriver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CarId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="offlineRideAllowed" Type="bit" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone number" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DrivePackage">
+          <Key>
+            <PropertyRef Name="RideId" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="RideId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Speed" Type="int" />
+          <Property Name="RPM" Type="int" />
+          <Property Name="EngineTemp" Type="int" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Licence" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExperienceYears" Type="smallint" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DriverToCompany">
+          <Key>
+            <PropertyRef Name="DriverId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="DriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+          <Property Name="Emergency" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role_DayRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sunday" Type="bit" />
+          <Property Name="Monday" Type="bit" />
+          <Property Name="Tuesday" Type="bit" />
+          <Property Name="Wednesday" Type="bit" />
+          <Property Name="Thursday" Type="bit" />
+          <Property Name="Friday" Type="bit" />
+          <Property Name="Saturday" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role_EngineTempLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WarningLimit" Type="smallint" />
+          <Property Name="CountBrokeWarningLimit" Type="smallint" />
+          <Property Name="MaxtBrokeWarningLimit" Type="smallint" />
+          <Property Name="PunishmentLimit" Type="smallint" />
+          <Property Name="CountBrokePunishmentLimit" Type="smallint" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Role_Punished">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="expirationDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role_RidesWithOutData">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumberOfAllowedRidesWithoutReporting" Type="smallint" Nullable="false" />
+          <Property Name="Count" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role_RPMLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WarningLimit" Type="smallint" />
+          <Property Name="CountBrokeWarningLimit" Type="smallint" />
+          <Property Name="MaxtBrokeWarningLimit" Type="smallint" />
+          <Property Name="PunishmentLimit" Type="smallint" />
+          <Property Name="CountBrokePunishmentLimit" Type="smallint" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Role_SpeedLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WarningLimit" Type="smallint" />
+          <Property Name="CountBrokeWarningLimit" Type="smallint" />
+          <Property Name="MaxtBrokeWarningLimit" Type="smallint" />
+          <Property Name="PunishmentLimit" Type="smallint" />
+          <Property Name="CountBrokePunishmentLimit" Type="smallint" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Role_TimeRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.CarsToDriverView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CarsToDriverView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="DriverId" />
+            <PropertyRef Name="CarLicenseNumber" />
+            <PropertyRef Name="DriverLicenseNumber" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="bigint" Nullable="false" />
+          <Property Name="CarModel" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverFamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverLicenseNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OfflineRideAllowed" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.EndedRides' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EndedRides">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+          <Property Name="Emergency" Type="bit" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.FinishRide' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FinishRide">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.RideInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RideInfo">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Car_ToCarsToDriver">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarsToDriver">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_ToCompany">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrivePackage_ToRide">
+          <End Role="Ride" Type="Self.Ride" Multiplicity="1" />
+          <End Role="DrivePackage" Type="Self.DrivePackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DrivePackage">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_ToCarsToDriver">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarsToDriver">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverToCompany_ToCompany">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="DriverToCompany" Type="Self.DriverToCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverToCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverToCompany_ToDrivers">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="DriverToCompany" Type="Self.DriverToCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverToCompany">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_ToCars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_ToDrivers">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_DayRestriction_ToCarsToDriver">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_DayRestriction" Type="Self.Role_DayRestriction" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_DayRestriction">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_EngineTempLimit_ToDrivers">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_EngineTempLimit" Type="Self.Role_EngineTempLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_EngineTempLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Punished_ToCarsToDriver">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_Punished" Type="Self.Role_Punished" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_Punished">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_RidesWithOutData_ToCarsToDriver">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_RidesWithOutData" Type="Self.Role_RidesWithOutData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_RidesWithOutData">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_RPMLimit_ToCarsToDriver">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_RPMLimit" Type="Self.Role_RPMLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_RPMLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_SpeedLimit_ToTable">
+          <End Role="CarsToDriver" Type="Self.CarsToDriver" Multiplicity="1" />
+          <End Role="Role_SpeedLimit" Type="Self.Role_SpeedLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_SpeedLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarManagerDbModelStoreContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarsToDriver" EntityType="Self.CarsToDriver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrivePackage" EntityType="Self.DrivePackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DriverToCompany" EntityType="Self.DriverToCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ride" EntityType="Self.Ride" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_DayRestriction" EntityType="Self.Role_DayRestriction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_EngineTempLimit" EntityType="Self.Role_EngineTempLimit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_Punished" EntityType="Self.Role_Punished" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_RidesWithOutData" EntityType="Self.Role_RidesWithOutData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_RPMLimit" EntityType="Self.Role_RPMLimit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_SpeedLimit" EntityType="Self.Role_SpeedLimit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_TimeRestriction" EntityType="Self.Role_TimeRestriction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarsToDriverView" EntityType="Self.CarsToDriverView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CarsToDriverView].[Id] AS [Id], 
+    [CarsToDriverView].[CarId] AS [CarId], 
+    [CarsToDriverView].[DriverId] AS [DriverId], 
+    [CarsToDriverView].[CarLicenseNumber] AS [CarLicenseNumber], 
+    [CarsToDriverView].[CarModel] AS [CarModel], 
+    [CarsToDriverView].[DriverName] AS [DriverName], 
+    [CarsToDriverView].[DriverFamilyName] AS [DriverFamilyName], 
+    [CarsToDriverView].[DriverLicenseNumber] AS [DriverLicenseNumber], 
+    [CarsToDriverView].[OfflineRideAllowed] AS [OfflineRideAllowed]
+    FROM [dbo].[CarsToDriverView] AS [CarsToDriverView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EndedRides" EntityType="Self.EndedRides" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EndedRides].[Number] AS [Number], 
+    [EndedRides].[Name] AS [Name], 
+    [EndedRides].[FamilyName] AS [FamilyName], 
+    [EndedRides].[StartDrive] AS [StartDrive], 
+    [EndedRides].[EndDrive] AS [EndDrive], 
+    [EndedRides].[Emergency] AS [Emergency], 
+    [EndedRides].[Id] AS [Id], 
+    [EndedRides].[CarID] AS [CarID], 
+    [EndedRides].[DriverID] AS [DriverID]
+    FROM [dbo].[EndedRides] AS [EndedRides]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FinishRide" EntityType="Self.FinishRide" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FinishRide].[Id] AS [Id], 
+    [FinishRide].[Number] AS [Number], 
+    [FinishRide].[Name] AS [Name], 
+    [FinishRide].[FamilyName] AS [FamilyName], 
+    [FinishRide].[StartDrive] AS [StartDrive], 
+    [FinishRide].[EndDrive] AS [EndDrive]
+    FROM [dbo].[FinishRide] AS [FinishRide]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RideInfo" EntityType="Self.RideInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RideInfo].[Name] AS [Name], 
+    [RideInfo].[Number] AS [Number], 
+    [RideInfo].[StartDrive] AS [StartDrive], 
+    [RideInfo].[EndDrive] AS [EndDrive], 
+    [RideInfo].[Id] AS [Id]
+    FROM [dbo].[RideInfo] AS [RideInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Car_ToCarsToDriver" Association="Self.FK_Car_ToCarsToDriver">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_ToCompany" Association="Self.FK_Cars_ToCompany">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrivePackage_ToRide" Association="Self.FK_DrivePackage_ToRide">
+            <End Role="Ride" EntitySet="Ride" />
+            <End Role="DrivePackage" EntitySet="DrivePackage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_ToCarsToDriver" Association="Self.FK_Driver_ToCarsToDriver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverToCompany_ToCompany" Association="Self.FK_DriverToCompany_ToCompany">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="DriverToCompany" EntitySet="DriverToCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverToCompany_ToDrivers" Association="Self.FK_DriverToCompany_ToDrivers">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="DriverToCompany" EntitySet="DriverToCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_ToCars" Association="Self.FK_Ride_ToCars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_ToDrivers" Association="Self.FK_Ride_ToDrivers">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_DayRestriction_ToCarsToDriver" Association="Self.FK_Role_DayRestriction_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_DayRestriction" EntitySet="Role_DayRestriction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_EngineTempLimit_ToDrivers" Association="Self.FK_Role_EngineTempLimit_ToDrivers">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_EngineTempLimit" EntitySet="Role_EngineTempLimit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Punished_ToCarsToDriver" Association="Self.FK_Role_Punished_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_Punished" EntitySet="Role_Punished" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_RidesWithOutData_ToCarsToDriver" Association="Self.FK_Role_RidesWithOutData_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_RidesWithOutData" EntitySet="Role_RidesWithOutData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_RPMLimit_ToCarsToDriver" Association="Self.FK_Role_RPMLimit_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_RPMLimit" EntitySet="Role_RPMLimit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_SpeedLimit_ToTable" Association="Self.FK_Role_SpeedLimit_ToTable">
+            <End Role="CarsToDriver" EntitySet="CarsToDriver" />
+            <End Role="Role_SpeedLimit" EntitySet="Role_SpeedLimit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarManagerDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CarManagerDbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="CarManagerDbModel.Car" />
+          <EntitySet Name="CarsToDrivers" EntityType="CarManagerDbModel.CarsToDriver" />
+          <EntitySet Name="Companies" EntityType="CarManagerDbModel.Company" />
+          <EntitySet Name="DrivePackages" EntityType="CarManagerDbModel.DrivePackage" />
+          <EntitySet Name="Drivers" EntityType="CarManagerDbModel.Driver" />
+          <EntitySet Name="DriverToCompanies" EntityType="CarManagerDbModel.DriverToCompany" />
+          <EntitySet Name="Rides" EntityType="CarManagerDbModel.Ride" />
+          <EntitySet Name="Role_DayRestriction" EntityType="CarManagerDbModel.Role_DayRestriction" />
+          <EntitySet Name="Role_EngineTempLimit" EntityType="CarManagerDbModel.Role_EngineTempLimit" />
+          <EntitySet Name="Role_Punished" EntityType="CarManagerDbModel.Role_Punished" />
+          <EntitySet Name="Role_RidesWithOutData" EntityType="CarManagerDbModel.Role_RidesWithOutData" />
+          <EntitySet Name="Role_RPMLimit" EntityType="CarManagerDbModel.Role_RPMLimit" />
+          <EntitySet Name="Role_SpeedLimit" EntityType="CarManagerDbModel.Role_SpeedLimit" />
+          <EntitySet Name="Role_TimeRestriction" EntityType="CarManagerDbModel.Role_TimeRestriction" />
+          <EntitySet Name="CarsToDriverViews" EntityType="CarManagerDbModel.CarsToDriverView" />
+          <EntitySet Name="EndedRides" EntityType="CarManagerDbModel.EndedRide" />
+          <EntitySet Name="FinishRides" EntityType="CarManagerDbModel.FinishRide" />
+          <EntitySet Name="RideInfoes" EntityType="CarManagerDbModel.RideInfo" />
+          <AssociationSet Name="FK_Car_ToCarsToDriver" Association="CarManagerDbModel.FK_Car_ToCarsToDriver">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_ToCompany" Association="CarManagerDbModel.FK_Cars_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Car" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_ToCars" Association="CarManagerDbModel.FK_Ride_ToCars">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Ride" EntitySet="Rides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_ToCarsToDriver" Association="CarManagerDbModel.FK_Driver_ToCarsToDriver">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_DayRestriction_ToCarsToDriver" Association="CarManagerDbModel.FK_Role_DayRestriction_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_DayRestriction" EntitySet="Role_DayRestriction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_EngineTempLimit_ToDrivers" Association="CarManagerDbModel.FK_Role_EngineTempLimit_ToDrivers">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_EngineTempLimit" EntitySet="Role_EngineTempLimit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Punished_ToCarsToDriver" Association="CarManagerDbModel.FK_Role_Punished_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_Punished" EntitySet="Role_Punished" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_RidesWithOutData_ToCarsToDriver" Association="CarManagerDbModel.FK_Role_RidesWithOutData_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_RidesWithOutData" EntitySet="Role_RidesWithOutData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_RPMLimit_ToCarsToDriver" Association="CarManagerDbModel.FK_Role_RPMLimit_ToCarsToDriver">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_RPMLimit" EntitySet="Role_RPMLimit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_SpeedLimit_ToTable" Association="CarManagerDbModel.FK_Role_SpeedLimit_ToTable">
+            <End Role="CarsToDriver" EntitySet="CarsToDrivers" />
+            <End Role="Role_SpeedLimit" EntitySet="Role_SpeedLimit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverToCompany_ToCompany" Association="CarManagerDbModel.FK_DriverToCompany_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="DriverToCompany" EntitySet="DriverToCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrivePackage_ToRide" Association="CarManagerDbModel.FK_DrivePackage_ToRide">
+            <End Role="Ride" EntitySet="Rides" />
+            <End Role="DrivePackage" EntitySet="DrivePackages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverToCompany_ToDrivers" Association="CarManagerDbModel.FK_DriverToCompany_ToDrivers">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="DriverToCompany" EntitySet="DriverToCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_ToDrivers" Association="CarManagerDbModel.FK_Ride_ToDrivers">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Ride" EntitySet="Rides" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="LastPermissionUpdate" Type="DateTime" Precision="3" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CarsToDrivers" Relationship="CarManagerDbModel.FK_Car_ToCarsToDriver" FromRole="Car" ToRole="CarsToDriver" />
+          <NavigationProperty Name="Company" Relationship="CarManagerDbModel.FK_Cars_ToCompany" FromRole="Car" ToRole="Company" />
+          <NavigationProperty Name="Rides" Relationship="CarManagerDbModel.FK_Ride_ToCars" FromRole="Car" ToRole="Ride" />
+        </EntityType>
+        <EntityType Name="CarsToDriver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CarId" Type="Guid" Nullable="false" />
+          <Property Name="DriverId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="offlineRideAllowed" Type="Boolean" />
+          <NavigationProperty Name="Car" Relationship="CarManagerDbModel.FK_Car_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Car" />
+          <NavigationProperty Name="Driver" Relationship="CarManagerDbModel.FK_Driver_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Driver" />
+          <NavigationProperty Name="Role_DayRestriction" Relationship="CarManagerDbModel.FK_Role_DayRestriction_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Role_DayRestriction" />
+          <NavigationProperty Name="Role_EngineTempLimit" Relationship="CarManagerDbModel.FK_Role_EngineTempLimit_ToDrivers" FromRole="CarsToDriver" ToRole="Role_EngineTempLimit" />
+          <NavigationProperty Name="Role_Punished" Relationship="CarManagerDbModel.FK_Role_Punished_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Role_Punished" />
+          <NavigationProperty Name="Role_RidesWithOutData" Relationship="CarManagerDbModel.FK_Role_RidesWithOutData_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Role_RidesWithOutData" />
+          <NavigationProperty Name="Role_RPMLimit" Relationship="CarManagerDbModel.FK_Role_RPMLimit_ToCarsToDriver" FromRole="CarsToDriver" ToRole="Role_RPMLimit" />
+          <NavigationProperty Name="Role_SpeedLimit" Relationship="CarManagerDbModel.FK_Role_SpeedLimit_ToTable" FromRole="CarsToDriver" ToRole="Role_SpeedLimit" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cars" Relationship="CarManagerDbModel.FK_Cars_ToCompany" FromRole="Company" ToRole="Car" />
+          <NavigationProperty Name="DriverToCompanies" Relationship="CarManagerDbModel.FK_DriverToCompany_ToCompany" FromRole="Company" ToRole="DriverToCompany" />
+        </EntityType>
+        <EntityType Name="DrivePackage">
+          <Key>
+            <PropertyRef Name="RideId" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="RideId" Type="Guid" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Speed" Type="Int32" />
+          <Property Name="RPM" Type="Int32" />
+          <Property Name="EngineTemp" Type="Int32" />
+          <NavigationProperty Name="Ride" Relationship="CarManagerDbModel.FK_DrivePackage_ToRide" FromRole="DrivePackage" ToRole="Ride" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Licence" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExperienceYears" Type="Int16" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarsToDrivers" Relationship="CarManagerDbModel.FK_Driver_ToCarsToDriver" FromRole="Driver" ToRole="CarsToDriver" />
+          <NavigationProperty Name="DriverToCompanies" Relationship="CarManagerDbModel.FK_DriverToCompany_ToDrivers" FromRole="Driver" ToRole="DriverToCompany" />
+          <NavigationProperty Name="Rides" Relationship="CarManagerDbModel.FK_Ride_ToDrivers" FromRole="Driver" ToRole="Ride" />
+        </EntityType>
+        <EntityType Name="DriverToCompany">
+          <Key>
+            <PropertyRef Name="DriverId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="DriverId" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="CarManagerDbModel.FK_DriverToCompany_ToCompany" FromRole="DriverToCompany" ToRole="Company" />
+          <NavigationProperty Name="Driver" Relationship="CarManagerDbModel.FK_DriverToCompany_ToDrivers" FromRole="DriverToCompany" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DriverID" Type="Guid" Nullable="false" />
+          <Property Name="CarID" Type="Guid" Nullable="false" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+          <Property Name="Emergency" Type="Boolean" />
+          <NavigationProperty Name="Car" Relationship="CarManagerDbModel.FK_Ride_ToCars" FromRole="Ride" ToRole="Car" />
+          <NavigationProperty Name="DrivePackages" Relationship="CarManagerDbModel.FK_DrivePackage_ToRide" FromRole="Ride" ToRole="DrivePackage" />
+          <NavigationProperty Name="Driver" Relationship="CarManagerDbModel.FK_Ride_ToDrivers" FromRole="Ride" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="Role_DayRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" />
+          <Property Name="Monday" Type="Boolean" />
+          <Property Name="Tuesday" Type="Boolean" />
+          <Property Name="Wednesday" Type="Boolean" />
+          <Property Name="Thursday" Type="Boolean" />
+          <Property Name="Friday" Type="Boolean" />
+          <Property Name="Saturday" Type="Boolean" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_DayRestriction_ToCarsToDriver" FromRole="Role_DayRestriction" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_EngineTempLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="WarningLimit" Type="Int16" />
+          <Property Name="CountBrokeWarningLimit" Type="Int16" />
+          <Property Name="MaxtBrokeWarningLimit" Type="Int16" />
+          <Property Name="PunishmentLimit" Type="Int16" />
+          <Property Name="CountBrokePunishmentLimit" Type="Int16" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="Int16" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_EngineTempLimit_ToDrivers" FromRole="Role_EngineTempLimit" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_Punished">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Guid" Nullable="false" />
+          <Property Name="expirationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_Punished_ToCarsToDriver" FromRole="Role_Punished" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_RidesWithOutData">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="NumberOfAllowedRidesWithoutReporting" Type="Int16" Nullable="false" />
+          <Property Name="Count" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_RidesWithOutData_ToCarsToDriver" FromRole="Role_RidesWithOutData" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_RPMLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="WarningLimit" Type="Int16" />
+          <Property Name="CountBrokeWarningLimit" Type="Int16" />
+          <Property Name="MaxtBrokeWarningLimit" Type="Int16" />
+          <Property Name="PunishmentLimit" Type="Int16" />
+          <Property Name="CountBrokePunishmentLimit" Type="Int16" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="Int16" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_RPMLimit_ToCarsToDriver" FromRole="Role_RPMLimit" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_SpeedLimit">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="WarningLimit" Type="Int16" />
+          <Property Name="CountBrokeWarningLimit" Type="Int16" />
+          <Property Name="MaxtBrokeWarningLimit" Type="Int16" />
+          <Property Name="PunishmentLimit" Type="Int16" />
+          <Property Name="CountBrokePunishmentLimit" Type="Int16" />
+          <Property Name="MaxtBrokePunishmentLimit" Type="Int16" />
+          <NavigationProperty Name="CarsToDriver" Relationship="CarManagerDbModel.FK_Role_SpeedLimit_ToTable" FromRole="Role_SpeedLimit" ToRole="CarsToDriver" />
+        </EntityType>
+        <EntityType Name="Role_TimeRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="CarsToDriverView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="DriverId" />
+            <PropertyRef Name="CarLicenseNumber" />
+            <PropertyRef Name="DriverLicenseNumber" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarId" Type="Guid" Nullable="false" />
+          <Property Name="DriverId" Type="Guid" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="Int64" Nullable="false" />
+          <Property Name="CarModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverFamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverLicenseNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OfflineRideAllowed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="EndedRide">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+          <Property Name="Emergency" Type="Boolean" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CarID" Type="Guid" Nullable="false" />
+          <Property Name="DriverID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinishRide">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RideInfo">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Car_ToCarsToDriver">
+          <End Type="CarManagerDbModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarsToDriver">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_ToCompany">
+          <End Type="CarManagerDbModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_ToCars">
+          <End Type="CarManagerDbModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Ride" Role="Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_ToCarsToDriver">
+          <End Type="CarManagerDbModel.Driver" Role="Driver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarsToDriver">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_DayRestriction_ToCarsToDriver">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_DayRestriction" Role="Role_DayRestriction" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_DayRestriction">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_EngineTempLimit_ToDrivers">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_EngineTempLimit" Role="Role_EngineTempLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_EngineTempLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Punished_ToCarsToDriver">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_Punished" Role="Role_Punished" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_Punished">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_RidesWithOutData_ToCarsToDriver">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_RidesWithOutData" Role="Role_RidesWithOutData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_RidesWithOutData">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_RPMLimit_ToCarsToDriver">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_RPMLimit" Role="Role_RPMLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_RPMLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_SpeedLimit_ToTable">
+          <End Type="CarManagerDbModel.CarsToDriver" Role="CarsToDriver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Role_SpeedLimit" Role="Role_SpeedLimit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CarsToDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_SpeedLimit">
+              <PropertyRef Name="CarToDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverToCompany_ToCompany">
+          <End Type="CarManagerDbModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="CarManagerDbModel.DriverToCompany" Role="DriverToCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverToCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrivePackage_ToRide">
+          <End Type="CarManagerDbModel.Ride" Role="Ride" Multiplicity="1" />
+          <End Type="CarManagerDbModel.DrivePackage" Role="DrivePackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DrivePackage">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverToCompany_ToDrivers">
+          <End Type="CarManagerDbModel.Driver" Role="Driver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.DriverToCompany" Role="DriverToCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverToCompany">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_ToDrivers">
+          <End Type="CarManagerDbModel.Driver" Role="Driver" Multiplicity="1" />
+          <End Type="CarManagerDbModel.Ride" Role="Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarManagerDbModelStoreContainer" CdmEntityContainer="CarManagerDbEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="LastPermissionUpdate" ColumnName="LastPermissionUpdate" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarsToDrivers">
+            <EntityTypeMapping TypeName="CarManagerDbModel.CarsToDriver">
+              <MappingFragment StoreEntitySet="CarsToDriver">
+                <ScalarProperty Name="offlineRideAllowed" ColumnName="offlineRideAllowed" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrivePackages">
+            <EntityTypeMapping TypeName="CarManagerDbModel.DrivePackage">
+              <MappingFragment StoreEntitySet="DrivePackage">
+                <ScalarProperty Name="EngineTemp" ColumnName="EngineTemp" />
+                <ScalarProperty Name="RPM" ColumnName="RPM" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ExperienceYears" ColumnName="ExperienceYears" />
+                <ScalarProperty Name="Licence" ColumnName="Licence" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DriverToCompanies">
+            <EntityTypeMapping TypeName="CarManagerDbModel.DriverToCompany">
+              <MappingFragment StoreEntitySet="DriverToCompany">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rides">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Ride">
+              <MappingFragment StoreEntitySet="Ride">
+                <ScalarProperty Name="Emergency" ColumnName="Emergency" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_DayRestriction">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_DayRestriction">
+              <MappingFragment StoreEntitySet="Role_DayRestriction">
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_EngineTempLimit">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_EngineTempLimit">
+              <MappingFragment StoreEntitySet="Role_EngineTempLimit">
+                <ScalarProperty Name="MaxtBrokePunishmentLimit" ColumnName="MaxtBrokePunishmentLimit" />
+                <ScalarProperty Name="CountBrokePunishmentLimit" ColumnName="CountBrokePunishmentLimit" />
+                <ScalarProperty Name="PunishmentLimit" ColumnName="PunishmentLimit" />
+                <ScalarProperty Name="MaxtBrokeWarningLimit" ColumnName="MaxtBrokeWarningLimit" />
+                <ScalarProperty Name="CountBrokeWarningLimit" ColumnName="CountBrokeWarningLimit" />
+                <ScalarProperty Name="WarningLimit" ColumnName="WarningLimit" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_Punished">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_Punished">
+              <MappingFragment StoreEntitySet="Role_Punished">
+                <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_RidesWithOutData">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_RidesWithOutData">
+              <MappingFragment StoreEntitySet="Role_RidesWithOutData">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="NumberOfAllowedRidesWithoutReporting" ColumnName="NumberOfAllowedRidesWithoutReporting" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_RPMLimit">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_RPMLimit">
+              <MappingFragment StoreEntitySet="Role_RPMLimit">
+                <ScalarProperty Name="MaxtBrokePunishmentLimit" ColumnName="MaxtBrokePunishmentLimit" />
+                <ScalarProperty Name="CountBrokePunishmentLimit" ColumnName="CountBrokePunishmentLimit" />
+                <ScalarProperty Name="PunishmentLimit" ColumnName="PunishmentLimit" />
+                <ScalarProperty Name="MaxtBrokeWarningLimit" ColumnName="MaxtBrokeWarningLimit" />
+                <ScalarProperty Name="CountBrokeWarningLimit" ColumnName="CountBrokeWarningLimit" />
+                <ScalarProperty Name="WarningLimit" ColumnName="WarningLimit" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_SpeedLimit">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_SpeedLimit">
+              <MappingFragment StoreEntitySet="Role_SpeedLimit">
+                <ScalarProperty Name="MaxtBrokePunishmentLimit" ColumnName="MaxtBrokePunishmentLimit" />
+                <ScalarProperty Name="CountBrokePunishmentLimit" ColumnName="CountBrokePunishmentLimit" />
+                <ScalarProperty Name="PunishmentLimit" ColumnName="PunishmentLimit" />
+                <ScalarProperty Name="MaxtBrokeWarningLimit" ColumnName="MaxtBrokeWarningLimit" />
+                <ScalarProperty Name="CountBrokeWarningLimit" ColumnName="CountBrokeWarningLimit" />
+                <ScalarProperty Name="WarningLimit" ColumnName="WarningLimit" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_TimeRestriction">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_TimeRestriction">
+              <MappingFragment StoreEntitySet="Role_TimeRestriction">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarsToDriverViews">
+            <EntityTypeMapping TypeName="CarManagerDbModel.CarsToDriverView">
+              <MappingFragment StoreEntitySet="CarsToDriverView">
+                <ScalarProperty Name="OfflineRideAllowed" ColumnName="OfflineRideAllowed" />
+                <ScalarProperty Name="DriverLicenseNumber" ColumnName="DriverLicenseNumber" />
+                <ScalarProperty Name="DriverFamilyName" ColumnName="DriverFamilyName" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+                <ScalarProperty Name="CarLicenseNumber" ColumnName="CarLicenseNumber" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndedRides">
+            <EntityTypeMapping TypeName="CarManagerDbModel.EndedRide">
+              <MappingFragment StoreEntitySet="EndedRides">
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Emergency" ColumnName="Emergency" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinishRides">
+            <EntityTypeMapping TypeName="CarManagerDbModel.FinishRide">
+              <MappingFragment StoreEntitySet="FinishRide">
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RideInfoes">
+            <EntityTypeMapping TypeName="CarManagerDbModel.RideInfo">
+              <MappingFragment StoreEntitySet="RideInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

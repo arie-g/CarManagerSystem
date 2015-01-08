@@ -1,0 +1,71 @@
+﻿@model CarManagerWebApplication.Models.WrapEndedRidesModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+<h2>
+    <label>
+        @string.Format("Last Rides For {0} {1}", Model.Driver.Name, Model.Driver.FamilyName)
+    </label>
+</h2>
+
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr style="font-size:18px">
+                <th>Car License Number</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Emergency Ride</th>
+            </tr>
+        </thead>
+
+    @foreach (var item in Model.EndedRides)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.StartDrive, "dd/MM/YY HH:mm");*@
+                @string.Format(item.StartDrive.ToString("dd/MM/yyyy HH:mm"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDrive)
+            </td>
+            @if (item.Emergency != null)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Emergency)
+
+
+                    @if (item.Emergency != null)
+                    {
+                        <script>alert("in");</script>
+                        @Html.Display("Yes");
+                        @Html.Display(item.Emergency.ToString());
+                    }
+
+                </td>*@
+            <td>
+                @Html.ActionLink("Ride Details", "RideDetails", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+    <a href="javascript:history.back()"><< Back to Drivers</a>
+
+    @*@Html.ActionLink("<< Back to Drivers", "Index", "Drivers")*@

@@ -1,0 +1,120 @@
+﻿@model CarManagerWebApplication.Models.AddCarsToDriverModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@*@using (Html.BeginForm("Save", "CarsToDriver", FormMethod.Post, new { id = "editForm" }))
+    {*@
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <h4>
+        Add new Car to Driver
+    </h4>
+
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="well bs-component">
+        <div class="form-group">
+            <label for="select" class="col-lg-2 control-label">Select Driver:</label>
+            <div class="col-lg-10">
+                <select class="form-control" id="driverSelect">
+                    @foreach (SelectListItem item in Model.PossibleDrivers)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="select" class="col-lg-2 control-label">Select Car:</label>
+            <div class="col-lg-10">
+                <select class="form-control" id="carSelect">
+                    @foreach (SelectListItem item in Model.PossibleCars)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(model => model.offlineRideAllowed, new { Id = "offlineAllow" })
+                        Allow offline rides?
+                    </label>
+                </div>
+            </div>
+           
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Save" id="save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+@*}*@
+
+<a href="javascript:history.back()"><< Go Back</a>
+
+
+<div id="save-dialog" title="Save" style="display:none">
+</div>
+
+<div style="display:none">
+    @Html.ActionLink("CarsToDriver", "Index", "CarsToDriver", null, new { id = "carsToDriverIndex" })
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#save-dialog').dialog({
+            autoOpen: false, width: 400, resizable: false, modal: true, //Dialog options
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    var url = $('#carsToDriverIndex').attr('href');;
+                    window.location.href = url;
+                }
+            }
+        });
+
+        $('#save-dialog').text('Adding car to Driver..').find('.ui-dialog-buttonpane .ui-button').hide();
+
+
+        $('#save').click(function () {
+            var data = new Object();
+            data.carId = $('#carSelect').val();
+            data.driverId = $('#driverSelect').val();
+            //data.offlineAllowed = $('#offline').val();
+
+            $('#save-dialog').dialog('open');
+
+            var allow = $("#offlineAllow").prop('checked')
+
+            $.ajax({
+                cache: false,
+                async: true,
+                type: 'GET',
+                url: '/' + $('#companyName') + '/CarsToDriver/Save?carId=' + data.carId + '&driverId=' + data.driverId + '&offlineRideAllowed=' + allow,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data == "success") {
+                        $('#save-dialog').text('Car Added to Driver successfully').dialog('widget').find('.ui-dialog-buttonpane .ui-button').show();
+                    }
+                    else {
+                        $.alert(data, 'Error');
+                    }
+                },
+                error: function (data) {
+
+                    $.alert(JSON.stringify(data), 'Error_2');
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

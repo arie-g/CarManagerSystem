@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/CarManagerCommon" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CarManagerCommon" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Dal" />
+  <xs:simpleType name="eRecognizeStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotRecognized" />
+      <xs:enumeration value="User" />
+      <xs:enumeration value="Driver" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="eRecognizeStatus" nillable="true" type="tns:eRecognizeStatus" />
+  <xs:complexType name="DriveStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarId" type="ser:guid" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Dal" minOccurs="0" name="Data" nillable="true" type="q1:ArrayOfDrivePackage" />
+      <xs:element minOccurs="0" name="DriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="FinishDrive" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StartDrive" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DriveStatistics" nillable="true" type="tns:DriveStatistics" />
+</xs:schema>

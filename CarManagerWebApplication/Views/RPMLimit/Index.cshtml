@@ -1,0 +1,89 @@
+﻿@model List<CarManagerWebApplication.Models.WrapRPMLimit>
+
+    @{
+        Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    }
+
+    <div class="col-lg-4">
+        <input class="form-control input-sm" type="text" id="filterString" placeholder="Filter Table">
+    </div>
+
+
+<table class="table table-striped table-hover " id="rpmTbl">
+        <thead>
+            <tr>
+                <th>Car Model</th>
+                <th>Driver Name</th>
+                <th>Warning Limit</th>
+                <th>Warning Max Times</th>
+                <th>Punishment Limit</th>
+                <th>Punishment Max Times</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Driver.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RPMLimit.WarningLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RPMLimit.MaxtBrokeWarningLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RPMLimit.PunishmentLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RPMLimit.MaxtBrokePunishmentLimit)
+                </td>
+                <td>
+                    <ul class="breadcrumb pull-right" style="padding-bottom:0px;padding-top:0px; margin-bottom:0px">
+                    @Html.ActionLink("Remove", "Remove", new { id = item.RPMLimit.CarToDriverId }, new { @class = "delete-link" })
+                   </ul>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+               @Html.ActionLink("Add RPM Limit", "Add")
+
+               
+
+
+    @*<div id="delete-dialog" title="Confirmation" style="display:none">
+        <p>Are you sure you want to remove this RPM Limit?</p>
+    </div>*@
+
+    <script>
+        $(document).ready(function () {
+            // delete Link
+            $('.delete-link').click(function () {
+                $.RemoveDataFromTable({
+                    title: 'Remove RPM Limit',
+                    message: 'Are you sure you want to remove this RPM Limit?',
+                    successMessage: 'RPM limit removed successfully',
+                    errorMessage: 'Error removing RPM limit',
+                    deleteLinkObj: $(this)
+                });
+
+                return false;
+            });
+
+            var driversTable = $('#rpmTbl')
+
+            $("#filterString").keyup(function () {
+                $.uiTableFilter(driversTable, this.value, ["Car Model", "Driver Name"]);
+            })
+        });
+    </script>
+
+
+

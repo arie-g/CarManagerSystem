@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="513c39ad437240eba971b335468d217e" Name="Diagram1">
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Car" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.CarsToDriver" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Company" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.DrivePackage" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Driver" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.DriverToCompany" Width="1.5" PointX="6" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Ride" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_DayRestriction" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_EngineTempLimit" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_Punished" Width="1.5" PointX="7.5" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_RidesWithOutData" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_RPMLimit" Width="1.5" PointX="7.5" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_SpeedLimit" Width="1.5" PointX="7.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.Role_TimeRestriction" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.UserNotification" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.CarsToDriverView" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.EndedRide" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.FinishRide" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarManagerDbEntities2.RideInfo" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Car_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Cars_ToCompany" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Ride_ToCars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Driver_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_DayRestriction_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_EngineTempLimit_ToDrivers" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_Punished_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_RidesWithOutData_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_RPMLimit_ToCarsToDriver" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Role_SpeedLimit_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_DriverToCompany_ToCompany" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_UserNotifications_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_DrivePackage_ToRide" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_DriverToCompany_ToDrivers" ManuallyRouted="false" />
+        <AssociationConnector Association="CarManagerDbEntities2.FK_Ride_ToDrivers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

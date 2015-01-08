@@ -1,0 +1,114 @@
+﻿@model CarManagerWebApplication.Models.AddDayRestrictionModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("Save", "DayRestriction", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <h3>Please select Drivers, Cars, and Day restrictions.</h3>
+    <div class="form-horizontal">
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group">
+                    <label for="drivers" class="col-lg-2 control-label">Drivers</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(m => m.SelectedDrivers, new MultiSelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cars" class="col-lg-2 control-label">Cars</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(m => m.SelectedCars, new MultiSelectList(Model.Cars, "Id", "Model"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Days" class="col-lg-2 control-label">Days:</label>
+                    <div class="col-lg-10">
+
+                        <div class="checkbox">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Sunday", Model.Sunday.HasValue && (bool)Model.Sunday)
+                                    Sunday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Monday", Model.Monday.HasValue && (bool)Model.Monday)
+                                    Monday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Tuesday", Model.Tuesday.HasValue && (bool)Model.Tuesday)
+                                    Tuesday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Wednesday", Model.Wednesday.HasValue && (bool)Model.Wednesday)
+                                    Wednesday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Thursday", Model.Thursday.HasValue && (bool)Model.Thursday)
+                                    Thursday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Friday", Model.Friday.HasValue && (bool)Model.Friday)
+                                    Friday
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Saturday", Model.Saturday.HasValue && (bool)Model.Saturday)
+                                    Saturday
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <input type="submit" value="Submit" id="Submit" class="btn btn-primary" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}
+
+<a href="javascript:history.back()"><< Go Back</a>
+
+
+<div id="save-dialog" title="Save" style="display:none">
+</div>
+
+<div style="display:none">
+    @Html.ActionLink("DayRestriction", "Index", "DayRestriction", null, new { id = "backLink" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submitForm').submit(function () {
+            $.SaveDataOnFormSubmit({
+                form: $('#submitForm'),
+                returnToUrl: $('#backLink').attr('href'),
+                dialog: {
+                    title: 'Add Day Restriction',
+                    message: 'Adding Day Restriction',
+                    errorMessage: 'Error occured while saving details.'
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+

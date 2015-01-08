@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarManagerDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DrivePackage">
+          <Key>
+            <PropertyRef Name="RideId" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="RideId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Speed" Type="int" />
+          <Property Name="RPM" Type="int" />
+          <Property Name="EngineTemp" Type="int" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Licence" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExperienceYears" Type="smallint" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Role_DayRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sunday" Type="bit" />
+          <Property Name="Monday" Type="bit" />
+          <Property Name="Tuesday" Type="bit" />
+          <Property Name="Wednesday" Type="bit" />
+          <Property Name="Thursday" Type="bit" />
+          <Property Name="Friday" Type="bit" />
+          <Property Name="Saturday" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role_TimeRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+            <PropertyRef Name="StartTime" />
+          </Key>
+          <Property Name="CarToDriverId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserEmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.EndedRides' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EndedRides">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DriverID" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DriverID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.FinishRide' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FinishRide">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarManagerDb.dbo.RideInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RideInfo">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="bigint" Nullable="false" />
+          <Property Name="StartDrive" Type="datetime" Nullable="false" />
+          <Property Name="EndDrive" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="CarManagerDbModelStoreContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrivePackage" EntityType="Self.DrivePackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ride" EntityType="Self.Ride" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_DayRestriction" EntityType="Self.Role_DayRestriction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_TimeRestriction" EntityType="Self.Role_TimeRestriction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndedRides" EntityType="Self.EndedRides" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EndedRides].[Id] AS [Id], 
+    [EndedRides].[DriverID] AS [DriverID], 
+    [EndedRides].[CarID] AS [CarID], 
+    [EndedRides].[StartDrive] AS [StartDrive], 
+    [EndedRides].[EndDrive] AS [EndDrive]
+    FROM [dbo].[EndedRides] AS [EndedRides]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FinishRide" EntityType="Self.FinishRide" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FinishRide].[Id] AS [Id], 
+    [FinishRide].[Number] AS [Number], 
+    [FinishRide].[Name] AS [Name], 
+    [FinishRide].[FamilyName] AS [FamilyName], 
+    [FinishRide].[StartDrive] AS [StartDrive], 
+    [FinishRide].[EndDrive] AS [EndDrive]
+    FROM [dbo].[FinishRide] AS [FinishRide]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RideInfo" EntityType="Self.RideInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RideInfo].[Name] AS [Name], 
+    [RideInfo].[Number] AS [Number], 
+    [RideInfo].[StartDrive] AS [StartDrive], 
+    [RideInfo].[EndDrive] AS [EndDrive]
+    FROM [dbo].[RideInfo] AS [RideInfo]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarManagerDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DrivePackage">
+          <Key>
+            <PropertyRef Name="RideId" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="RideId" Type="Guid" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Speed" Type="Int32" />
+          <Property Name="RPM" Type="Int32" />
+          <Property Name="EngineTemp" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Licence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExperienceYears" Type="Int16" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DriverID" Type="Guid" Nullable="false" />
+          <Property Name="CarID" Type="Guid" Nullable="false" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Role_DayRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" />
+          <Property Name="Monday" Type="Boolean" />
+          <Property Name="Tuesday" Type="Boolean" />
+          <Property Name="Wednesday" Type="Boolean" />
+          <Property Name="Thursday" Type="Boolean" />
+          <Property Name="Friday" Type="Boolean" />
+          <Property Name="Saturday" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Role_TimeRestriction">
+          <Key>
+            <PropertyRef Name="CarToDriverId" />
+            <PropertyRef Name="StartTime" />
+          </Key>
+          <Property Name="CarToDriverId" Type="Guid" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserEmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EndedRides">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DriverID" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DriverID" Type="Guid" Nullable="false" />
+          <Property Name="CarID" Type="Guid" Nullable="false" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FinishRide">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RideInfo">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="StartDrive" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int64" Nullable="false" />
+          <Property Name="StartDrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDrive" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="CarManagerDbEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Cars" />
+          <EntitySet Name="DrivePackage" EntityType="Self.DrivePackage" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" />
+          <EntitySet Name="Ride" EntityType="Self.Ride" />
+          <EntitySet Name="Role_DayRestriction" EntityType="Self.Role_DayRestriction" />
+          <EntitySet Name="Role_TimeRestriction" EntityType="Self.Role_TimeRestriction" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="EndedRides" EntityType="Self.EndedRides" />
+          <EntitySet Name="FinishRide" EntityType="Self.FinishRide" />
+          <EntitySet Name="RideInfo" EntityType="Self.RideInfo" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarManagerDbModelStoreContainer" CdmEntityContainer="CarManagerDbEntities2">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Cars">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrivePackage">
+            <EntityTypeMapping TypeName="CarManagerDbModel.DrivePackage">
+              <MappingFragment StoreEntitySet="DrivePackage">
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="RPM" ColumnName="RPM" />
+                <ScalarProperty Name="EngineTemp" ColumnName="EngineTemp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Drivers">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="Licence" ColumnName="Licence" />
+                <ScalarProperty Name="ExperienceYears" ColumnName="ExperienceYears" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ride">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Ride">
+              <MappingFragment StoreEntitySet="Ride">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_DayRestriction">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_DayRestriction">
+              <MappingFragment StoreEntitySet="Role_DayRestriction">
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_TimeRestriction">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Role_TimeRestriction">
+              <MappingFragment StoreEntitySet="Role_TimeRestriction">
+                <ScalarProperty Name="CarToDriverId" ColumnName="CarToDriverId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarManagerDbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmailAddress" ColumnName="UserEmailAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndedRides">
+            <EntityTypeMapping TypeName="CarManagerDbModel.EndedRides">
+              <MappingFragment StoreEntitySet="EndedRides">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinishRide">
+            <EntityTypeMapping TypeName="CarManagerDbModel.FinishRide">
+              <MappingFragment StoreEntitySet="FinishRide">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RideInfo">
+            <EntityTypeMapping TypeName="CarManagerDbModel.RideInfo">
+              <MappingFragment StoreEntitySet="RideInfo">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="StartDrive" ColumnName="StartDrive" />
+                <ScalarProperty Name="EndDrive" ColumnName="EndDrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

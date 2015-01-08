@@ -1,0 +1,105 @@
+﻿@model CarManagerWebApplication.Models.UserSum
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="list-group">
+    @if (Model.Notifications.Count() != null && Model.Notifications.Count() > 0) 
+    { 
+        <h4 class="list-group-item-heading">Notifications:</h4>
+        
+        foreach (var notification in Model.Notifications)
+        {
+            <a href="#" class="list-group-item">    
+                <p class="list-group-item-text">
+                    @notification
+                </p>
+            </a>
+        }
+    }
+</div>
+
+<h1>
+    Driver @Model.FullName
+</h1>
+
+<h4>Last Rides:</h4>
+
+<table class="table table-striped table-hover " id="lastRidesTable">
+    <thead>
+        <tr>
+                    <th>Car Number</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Emergency</th>
+        </tr>
+    </thead>
+
+
+    @foreach (var ride in Model.LastRides)
+    {
+        <tr>
+            <td>
+                @string.Format(ride.Number.ToString())
+            </td>
+            <td>
+                @string.Format(ride.StartDrive.ToString("dd/MM/yyyy , HH:mm"))
+            </td>
+            <td>
+                @if (ride.EndDrive.HasValue)
+                {
+                        @String.Format(ride.EndDrive.Value.ToString("dd/MM/yyyy , HH:mm"))
+                }
+                else
+                {
+                            @String.Format("-")
+                }
+
+            </td>
+            <td>
+                @if (ride.Emergency.HasValue && ride.Emergency.Value)
+                {
+                    @String.Format("Yes")
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+<h4>Cars:</h4>
+
+<table class="table table-striped table-hover " id="carsTable">
+    <thead>
+        <tr>
+            <th>Car Model</th>
+            <th>Car Number</th>
+            <th>Number of Rides</th>
+            <th>Car total distance</th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model.CarsSum)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberRides)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distance)
+            </td>
+        </tr>
+    }
+</table>
+

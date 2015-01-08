@@ -1,0 +1,36 @@
+﻿<li class="dropdown">
+
+    @if (Request.IsAuthenticated)
+    {
+        <a href="#" class="dropdown-toggle username" data-toggle="dropdown">Hello @User.Identity.Name <b class="caret"></b></a>
+
+
+        //<a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        <ul class="dropdown-menu">
+           
+            <li>
+                @*@Html.ActionLink("Manage account", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+
+
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            </li>
+        </ul>
+
+    }
+    else
+    {
+
+        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="dropdown-toggle"})
+
+    }
+
+
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+
+
+</li>

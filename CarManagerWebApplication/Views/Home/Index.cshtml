@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    //Layout = "~/Content/plushiness/_layout.cshtml";
+    //Layout = "~/Views/Shared/_layout2.cshtml";
+    
+    Layout = "~/Views/Shared/_layoutLogin.cshtml";
+    
+}
+    <body bgcolor="#E6E6FA">
+            <h2>        Welcome To Car Manager!</h2>
+            <img src="~/Content/CarManagerIcon/icon.jpg" style="width:304px;height:228px" align="right">
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <h3 width="10">
+                <p>
+                    <font face="Euphemia" color="#18bc9c" size="4">
+                        If you want to get
+                    </font>
+                    <font face="Euphemia" color="#18bc9c" size="5">
+                        the best out of your car
+                    </font>
+                    <font face="Euphemia" color="#18bc9c" size="4">
+                        , Monitor your driver's rides - <font face="Euphemia" color="#18bc9c" size="5">
+                            maybe even set restrictions
+                        </font>
+                        <br />
+                        <br />
+                <p>
+                    If you share car between the family members, or if your manage the vehicles fleet at your organization-
+                    <font face="Euphemia" color="#18bc9c" size="6">
+                        Car Manger is what you need!
+                    </font>
+                </p>
+            </h3>
+            </font>
+            <br />
+            <br />
+            <br />
+        <br />
+        @if (UsersManager.isAnonymus(WebSecurity.CurrentUserId))
+        {
+            <ol class="round">
+                <text>
+                    To use CarManager, First Login\Register using Facebook account,
+                    click on the link to register or using the toolbox above
+                    <a href="http://carmanagercloud.cloudapp.net/Account/Login">Register Link</a>
+                </text>
+            </ol>
+        }
+</body>
+    <label>
+    </label>
+

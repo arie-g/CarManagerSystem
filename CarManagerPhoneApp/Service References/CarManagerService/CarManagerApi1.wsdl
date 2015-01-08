@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CarManagerApi" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CarManagerCommon" />
+      <xsd:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Dal" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICarManagerApi_TimeToUpdateAuthorizedList_InputMessage">
+    <wsdl:part name="parameters" element="tns:TimeToUpdateAuthorizedList" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_TimeToUpdateAuthorizedList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TimeToUpdateAuthorizedListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_RestrictDrivingTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestrictDrivingTime" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_RestrictDrivingTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestrictDrivingTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_CheckBreakingRoles_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckBreakingRoles" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_CheckBreakingRoles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckBreakingRolesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_GetOfflineAndEmergencyAllowedDrivers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfflineAndEmergencyAllowedDrivers" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_GetOfflineAndEmergencyAllowedDrivers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfflineAndEmergencyAllowedDriversResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_CarIdByCarLicence_InputMessage">
+    <wsdl:part name="parameters" element="tns:CarIdByCarLicence" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_CarIdByCarLicence_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CarIdByCarLicenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_StartNewRide_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartNewRide" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_StartNewRide_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartNewRideResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_RecognizeUserStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecognizeUserStatus" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_RecognizeUserStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecognizeUserStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_UpdateOfflineRide_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOfflineRide" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_UpdateOfflineRide_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOfflineRideResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriverIdByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DriverIdByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriverIdByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DriverIdByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriversToApprove_InputMessage">
+    <wsdl:part name="parameters" element="tns:DriversToApprove" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriversToApprove_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DriversToApproveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriverIdByProviderId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DriverIdByProviderId" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_DriverIdByProviderId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DriverIdByProviderIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_ApproveDrivers_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveDrivers" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_ApproveDrivers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveDriversResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_AddDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDriver" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_AddDriver_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDriverResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_UserIdByProviderId_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserIdByProviderId" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_UserIdByProviderId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserIdByProviderIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_EmergencyDriveByFacebookId_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyDriveByFacebookId" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_EmergencyDriveByFacebookId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyDriveByFacebookIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_EmergencyDrive_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyDrive" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_EmergencyDrive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmergencyDriveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_SendRideStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendRideStatistics" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_SendRideStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendRideStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_SendDrivePackage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendDrivePackage" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_SendDrivePackage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendDrivePackageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_GetCompanies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCompanies" />
+  </wsdl:message>
+  <wsdl:message name="ICarManagerApi_GetCompanies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCompaniesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICarManagerApi">
+    <wsdl:operation name="TimeToUpdateAuthorizedList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/TimeToUpdateAuthorizedList" message="tns:ICarManagerApi_TimeToUpdateAuthorizedList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/TimeToUpdateAuthorizedListResponse" message="tns:ICarManagerApi_TimeToUpdateAuthorizedList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestrictDrivingTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/RestrictDrivingTime" message="tns:ICarManagerApi_RestrictDrivingTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/RestrictDrivingTimeResponse" message="tns:ICarManagerApi_RestrictDrivingTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckBreakingRoles">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/CheckBreakingRoles" message="tns:ICarManagerApi_CheckBreakingRoles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/CheckBreakingRolesResponse" message="tns:ICarManagerApi_CheckBreakingRoles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfflineAndEmergencyAllowedDrivers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/GetOfflineAndEmergencyAllowedDrivers" message="tns:ICarManagerApi_GetOfflineAndEmergencyAllowedDrivers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/GetOfflineAndEmergencyAllowedDriversResponse" message="tns:ICarManagerApi_GetOfflineAndEmergencyAllowedDrivers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CarIdByCarLicence">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/CarIdByCarLicence" message="tns:ICarManagerApi_CarIdByCarLicence_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/CarIdByCarLicenceResponse" message="tns:ICarManagerApi_CarIdByCarLicence_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartNewRide">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/StartNewRide" message="tns:ICarManagerApi_StartNewRide_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/StartNewRideResponse" message="tns:ICarManagerApi_StartNewRide_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeUserStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/RecognizeUserStatus" message="tns:ICarManagerApi_RecognizeUserStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/RecognizeUserStatusResponse" message="tns:ICarManagerApi_RecognizeUserStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOfflineRide">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/UpdateOfflineRide" message="tns:ICarManagerApi_UpdateOfflineRide_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/UpdateOfflineRideResponse" message="tns:ICarManagerApi_UpdateOfflineRide_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DriverIdByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/DriverIdByUserId" message="tns:ICarManagerApi_DriverIdByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/DriverIdByUserIdResponse" message="tns:ICarManagerApi_DriverIdByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DriversToApprove">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/DriversToApprove" message="tns:ICarManagerApi_DriversToApprove_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/DriversToApproveResponse" message="tns:ICarManagerApi_DriversToApprove_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DriverIdByProviderId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/DriverIdByProviderId" message="tns:ICarManagerApi_DriverIdByProviderId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/DriverIdByProviderIdResponse" message="tns:ICarManagerApi_DriverIdByProviderId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveDrivers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/ApproveDrivers" message="tns:ICarManagerApi_ApproveDrivers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/ApproveDriversResponse" message="tns:ICarManagerApi_ApproveDrivers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/AddDriver" message="tns:ICarManagerApi_AddDriver_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/AddDriverResponse" message="tns:ICarManagerApi_AddDriver_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserIdByProviderId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/UserIdByProviderId" message="tns:ICarManagerApi_UserIdByProviderId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/UserIdByProviderIdResponse" message="tns:ICarManagerApi_UserIdByProviderId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyDriveByFacebookId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/EmergencyDriveByFacebookId" message="tns:ICarManagerApi_EmergencyDriveByFacebookId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/EmergencyDriveByFacebookIdResponse" message="tns:ICarManagerApi_EmergencyDriveByFacebookId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyDrive">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/EmergencyDrive" message="tns:ICarManagerApi_EmergencyDrive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/EmergencyDriveResponse" message="tns:ICarManagerApi_EmergencyDrive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendRideStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/SendRideStatistics" message="tns:ICarManagerApi_SendRideStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/SendRideStatisticsResponse" message="tns:ICarManagerApi_SendRideStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendDrivePackage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/SendDrivePackage" message="tns:ICarManagerApi_SendDrivePackage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/SendDrivePackageResponse" message="tns:ICarManagerApi_SendDrivePackage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanies">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICarManagerApi/GetCompanies" message="tns:ICarManagerApi_GetCompanies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICarManagerApi/GetCompaniesResponse" message="tns:ICarManagerApi_GetCompanies_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICarManagerApi" type="tns:ICarManagerApi">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TimeToUpdateAuthorizedList">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/TimeToUpdateAuthorizedList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestrictDrivingTime">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/RestrictDrivingTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckBreakingRoles">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/CheckBreakingRoles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfflineAndEmergencyAllowedDrivers">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/GetOfflineAndEmergencyAllowedDrivers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CarIdByCarLicence">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/CarIdByCarLicence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartNewRide">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/StartNewRide" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeUserStatus">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/RecognizeUserStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOfflineRide">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/UpdateOfflineRide" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DriverIdByUserId">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/DriverIdByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DriversToApprove">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/DriversToApprove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DriverIdByProviderId">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/DriverIdByProviderId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveDrivers">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/ApproveDrivers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDriver">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/AddDriver" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserIdByProviderId">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/UserIdByProviderId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyDriveByFacebookId">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/EmergencyDriveByFacebookId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmergencyDrive">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/EmergencyDrive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendRideStatistics">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/SendRideStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDrivePackage">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/SendDrivePackage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanies">
+      <soap:operation soapAction="http://tempuri.org/ICarManagerApi/GetCompanies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CarManagerApi">
+    <wsdl:port name="BasicHttpBinding_ICarManagerApi" binding="tns:BasicHttpBinding_ICarManagerApi">
+      <soap:address location="http://carmanagercloud.cloudapp.net/CarManagerApi.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

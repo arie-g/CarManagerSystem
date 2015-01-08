@@ -1,0 +1,193 @@
+﻿
+@model CarManagerWebApplication.Models.WrapDriverModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@*@using (Html.BeginForm("Save", "Drivers", FormMethod.Post, new { id = "editForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (Model.DoesDriverExist)
+        {
+            <h4>
+                @string.Format("Edit details fo driver {0} {1}", Model.Driver.Name, Model.Driver.FamilyName)
+        </h4>
+
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Driver.Id)
+            @Html.HiddenFor(model => model.Driver.UserId)
+        }
+        else
+        {
+            <h4>
+                Adding new Driver
+            </h4>
+        
+            <hr />
+            @Html.ValidationSummary(true)
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driver.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driver.Name)
+                @Html.ValidationMessageFor(model => model.Driver.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driver.FamilyName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driver.FamilyName)
+                @Html.ValidationMessageFor(model => model.Driver.FamilyName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driver.Licence, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driver.Licence)
+                @Html.ValidationMessageFor(model => model.Driver.Licence)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driver.ExperienceYears, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driver.ExperienceYears)
+                @Html.ValidationMessageFor(model => model.Driver.ExperienceYears)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" id="save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+@using (Html.BeginForm("Save", "Drivers", FormMethod.Post, new { id = "editForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (Model.DoesDriverExist)
+        {
+            <h4>
+                @string.Format("Edit details fo driver {0} {1}", Model.Driver.Name, Model.Driver.FamilyName)
+        </h4>
+
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Driver.Id)
+            @Html.HiddenFor(model => model.Driver.UserId)
+        }
+        else
+        {
+            <h4>
+                Add a new driver
+            </h4>
+
+            <hr />
+            @Html.ValidationSummary(true)
+        }
+        <div class="well bs-component">
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Name, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Driver.Name, new { @class = "form-control", @placeholder = "Name" })
+                    @Html.ValidationMessageFor(model => model.Driver.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Family Name" class="col-lg-2 control-label">Years Of Experience</label>
+                @*@Html.LabelFor(model => model.Driver.FamilyName, new { @class = "col-lg-2 control-label" })*@
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Driver.FamilyName, new { @class = "form-control", @placeholder = "Family Name" })
+                    @Html.ValidationMessageFor(model => model.Driver.FamilyName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Licence, new { @class = "col-lg-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Driver.Licence, new { @class = "form-control", @placeholder = "Licence" })
+                    @Html.ValidationMessageFor(model => model.Driver.Licence)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Years Of Experience" class="col-lg-2 control-label">Years Of Experience</label>
+                @*@Html.LabelFor(model => model.Driver.ExperienceYears, new { @class = "col-lg-2 control-label" })*@
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Driver.ExperienceYears, new { @class = "form-control", @placeholder = "Years Of Experience" })
+                    @Html.ValidationMessageFor(model => model.Driver.ExperienceYears)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" id="save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+</div>
+}
+
+<a href="javascript:history.back()"><< Go Back</a>
+
+
+<div id="save-dialog" title="Save" style="display:none">
+</div>
+
+@*@Html.ActionLink("<< Back to Drivers", "Index", "Drivers")*@
+
+<script>
+    $(document).ready(function () {
+
+        $('#save-dialog').dialog({
+            autoOpen: false, width: 400, resizable: false, modal: true, //Dialog options
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                    var url = "/Drivers/";
+                    window.location.href = url;
+                }
+            }
+        });
+
+        $('#save-dialog').text('Saving Driver..').find('.ui-dialog-buttonpane .ui-button').hide();
+
+        var form = $('#editForm');
+        $('#editForm').submit(function () {
+            $('#save-dialog').dialog('open');
+            $.ajax({
+                cache: false,
+                async: true,
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    $('#save-dialog').text('Drive Saved successfully').dialog('widget').find('.ui-dialog-buttonpane .ui-button').show();
+                },
+                error: function (data) {
+                    $.alert('error');
+                    $.alert(data);
+                }
+            });
+
+
+            return false;
+        });
+
+
+
+    });
+</script>

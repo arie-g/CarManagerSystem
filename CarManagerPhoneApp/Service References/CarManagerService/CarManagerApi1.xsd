@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Dal" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dal" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfDrivePackage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DrivePackage" nillable="true" type="tns:DrivePackage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDrivePackage" nillable="true" type="tns:ArrayOfDrivePackage" />
+  <xs:complexType name="DrivePackage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EngineTemp" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RPM" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Ride" nillable="true" type="tns:Ride" />
+      <xs:element minOccurs="0" name="RideId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Speed" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DrivePackage" nillable="true" type="tns:DrivePackage" />
+  <xs:complexType name="Ride">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Car" nillable="true" type="tns:Car" />
+      <xs:element minOccurs="0" name="CarID" type="ser:guid" />
+      <xs:element minOccurs="0" name="DrivePackages" nillable="true" type="tns:ArrayOfDrivePackage" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="DriverID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Emergency" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EndDrive" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="StartDrive" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Ride" nillable="true" type="tns:Ride" />
+  <xs:complexType name="Car">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarsToDrivers" nillable="true" type="tns:ArrayOfCarsToDriver" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
+      <xs:element minOccurs="0" name="CompanyId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="LastPermissionUpdate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Model" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Number" type="xs:long" />
+      <xs:element minOccurs="0" name="Rides" nillable="true" type="tns:ArrayOfRide" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Car" nillable="true" type="tns:Car" />
+  <xs:complexType name="ArrayOfCarsToDriver">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CarsToDriver" nillable="true" type="tns:CarsToDriver" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCarsToDriver" nillable="true" type="tns:ArrayOfCarsToDriver" />
+  <xs:complexType name="CarsToDriver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Car" nillable="true" type="tns:Car" />
+      <xs:element minOccurs="0" name="CarId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="DriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Role_DayRestriction" nillable="true" type="tns:Role_DayRestriction" />
+      <xs:element minOccurs="0" name="Role_Punished" nillable="true" type="tns:Role_Punished" />
+      <xs:element minOccurs="0" name="Role_RidesWithOutData" nillable="true" type="tns:Role_RidesWithOutData" />
+      <xs:element minOccurs="0" name="offlineRideAllowed" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CarsToDriver" nillable="true" type="tns:CarsToDriver" />
+  <xs:complexType name="Driver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarsToDrivers" nillable="true" type="tns:ArrayOfCarsToDriver" />
+      <xs:element minOccurs="0" name="DriverToCompanies" nillable="true" type="tns:ArrayOfDriverToCompany" />
+      <xs:element minOccurs="0" name="ExperienceYears" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="FamilyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Licence" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rides" nillable="true" type="tns:ArrayOfRide" />
+      <xs:element minOccurs="0" name="Role_EngineTempLimit" nillable="true" type="tns:Role_EngineTempLimit" />
+      <xs:element minOccurs="0" name="Role_RPMLimit" nillable="true" type="tns:Role_RPMLimit" />
+      <xs:element minOccurs="0" name="Role_SpeedLimit" nillable="true" type="tns:Role_SpeedLimit" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Driver" nillable="true" type="tns:Driver" />
+  <xs:complexType name="ArrayOfDriverToCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DriverToCompany" nillable="true" type="tns:DriverToCompany" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDriverToCompany" nillable="true" type="tns:ArrayOfDriverToCompany" />
+  <xs:complexType name="DriverToCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Approved" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
+      <xs:element minOccurs="0" name="CompanyId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="DriverId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DriverToCompany" nillable="true" type="tns:DriverToCompany" />
+  <xs:complexType name="Company">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cars" nillable="true" type="tns:ArrayOfCar" />
+      <xs:element minOccurs="0" name="DriverToCompanies" nillable="true" type="tns:ArrayOfDriverToCompany" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone_number" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Company" nillable="true" type="tns:Company" />
+  <xs:complexType name="ArrayOfCar">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Car" nillable="true" type="tns:Car" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCar" nillable="true" type="tns:ArrayOfCar" />
+  <xs:complexType name="ArrayOfRide">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Ride" nillable="true" type="tns:Ride" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRide" nillable="true" type="tns:ArrayOfRide" />
+  <xs:complexType name="Role_EngineTempLimit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarToDriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CountBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CountBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="MaxtBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="MaxtBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="PunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="WarningLimit" nillable="true" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_EngineTempLimit" nillable="true" type="tns:Role_EngineTempLimit" />
+  <xs:complexType name="Role_RPMLimit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarToDriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CountBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CountBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="MaxtBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="MaxtBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="PunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="WarningLimit" nillable="true" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_RPMLimit" nillable="true" type="tns:Role_RPMLimit" />
+  <xs:complexType name="Role_SpeedLimit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarToDriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CountBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CountBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="MaxtBrokePunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="MaxtBrokeWarningLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="PunishmentLimit" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="WarningLimit" nillable="true" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_SpeedLimit" nillable="true" type="tns:Role_SpeedLimit" />
+  <xs:complexType name="Role_DayRestriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarToDriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CarsToDriver" nillable="true" type="tns:CarsToDriver" />
+      <xs:element minOccurs="0" name="Friday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Monday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Saturday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Sunday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Thursday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Tuesday" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Wednesday" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_DayRestriction" nillable="true" type="tns:Role_DayRestriction" />
+  <xs:complexType name="Role_Punished">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarsToDriver" nillable="true" type="tns:CarsToDriver" />
+      <xs:element minOccurs="0" name="DriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="expirationDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_Punished" nillable="true" type="tns:Role_Punished" />
+  <xs:complexType name="Role_RidesWithOutData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CarToDriverId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CarsToDriver" nillable="true" type="tns:CarsToDriver" />
+      <xs:element minOccurs="0" name="Count" type="xs:short" />
+      <xs:element minOccurs="0" name="NumberOfAllowedRidesWithoutReporting" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role_RidesWithOutData" nillable="true" type="tns:Role_RidesWithOutData" />
+</xs:schema>

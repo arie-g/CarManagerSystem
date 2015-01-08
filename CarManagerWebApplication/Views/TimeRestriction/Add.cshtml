@@ -1,0 +1,83 @@
+﻿@model CarManagerWebApplication.Models.AddTimeRestrictionModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("Save", "TimeRestriction", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "submitForm" }))
+{
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+    <label>
+        Please select Drivers, Cars, and time restrictions.
+    </label>
+<div class="form-horizontal">
+    <div class="well bs-component">
+        <fieldset>
+           
+            <div class="form-group">
+                <label for="select" class="col-lg-2 control-label">Drivers</label>
+                <div class="col-lg-10">
+                    @Html.ListBoxFor(m => m.SelectedDrivers, new MultiSelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="select" class="col-lg-2 control-label">Drivers</label>
+                <div class="col-lg-10">
+                    @Html.ListBoxFor(m => m.SelectedCars, new MultiSelectList(Model.Cars, "Id", "Model"), new { @class = "form-control" })
+                </div>
+            </div>
+                <fieldset>
+            <div class="form-group">
+                <label for="StartTime" class="col-lg-2 control-label">Start Time</label>
+                <div class="col-lg-10">
+                            @Html.TextBoxFor(m => Model.StartTime, new { @class = "form-control", @placeholder = "Start Time", @Value = Model.StartTime.ToString("H:mm") })
+                            @Html.ValidationMessageFor(m => Model.StartTime)
+                </div>
+            </div>
+                    <div class="form-group">
+                <label for="EndTime" class="col-lg-2 control-label">End Time</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => Model.EndTime, new { @class = "form-control", @placeholder = "End Time", @Value = Model.EndTime.ToString("H:mm") })
+                    @Html.ValidationMessageFor(m => Model.EndTime)
+                </div>
+            </div>
+                </fieldset>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <input type="submit" value="Submit" id="Submit" class="btn btn-primary" />
+                </div>
+            </div>
+                </fieldset>
+    </div>
+</div>
+}
+
+<a href="javascript:history.back()"><< Go Back</a>
+
+
+<div id="save-dialog" title="Save" style="display:none">
+            </div>
+
+<div style="display:none">
+    @Html.ActionLink("TimeRestriction", "Index", "TimeRestriction", null, new { id = "backLink" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submitForm').submit(function () {
+            $.SaveDataOnFormSubmit({
+                form: $('#submitForm'),
+                returnToUrl: $('#backLink').attr('href'),
+                dialog: {
+                    title: 'Add Time Restriction',
+                    message: 'Adding Time Restriction',
+                    errorMessage: 'Error occured while saving details.'
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,88 @@
+﻿@model CarManagerWebApplication.Models.AddRPMLimitModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("Save", "RPMLimit", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <h3>Please select Drivers, Cars, and Day restrictions.</h3>
+    <div class="form-horizontal">
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group">
+                    <label for="drivers" class="col-lg-2 control-label">Drivers</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(m => m.SelectedDrivers, new MultiSelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cars" class="col-lg-2 control-label">Cars</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(m => m.SelectedCars, new MultiSelectList(Model.Cars, "Id", "Model"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-Group">
+                    <label for="WarningLimit" class="col-lg-2 control-label">Warning Limit</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(m => Model.WarningLimit, new { @class = "form-control", @placeholder = "Warning Limit" })
+                        @Html.ValidationMessageFor(m => Model.WarningLimit)
+                    </div>
+                </div>
+                <div class="form-Group">
+                    <label for="MaxtBrokeWarningLimit" class="col-lg-2 control-label">Warning Max Times</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(m => Model.MaxtBrokeWarningLimit, new { @class = "form-control", @placeholder = "Warning Max Times" })
+                        @Html.ValidationMessageFor(m => Model.MaxtBrokeWarningLimit)
+                    </div>
+                </div>
+                <div class="form-Group">
+                    <label for="PunishmentLimit" class="col-lg-2 control-label">Punishment Limit</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(m => Model.PunishmentLimit, new { @class = "form-control", @placeholder = "Punishment Limit" })
+                        @Html.ValidationMessageFor(m => Model.PunishmentLimit)
+                    </div>
+                </div>
+                <div class="form-Group">
+                    <label for="WarningLimit" class="col-lg-2 control-label">Punishment Max Times</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(m => Model.MaxtBrokePunishmentLimit, new { @class = "form-control", @placeholder = "Punishment Max Times" })
+                        @Html.ValidationMessageFor(m => Model.MaxtBrokePunishmentLimit)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <input type="submit" value="Submit" id="Submit" class="btn btn-primary" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}
+
+<a href="javascript:history.back()"><< Go Back</a>
+
+<div style="display:none">
+    @Html.ActionLink("RPMLimit", "Index", "RPMLimit", null, new { id = "rpmLimitLink" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submitForm').submit(function () {
+            $.SaveDataOnFormSubmit({
+                form: $('#submitForm'),
+                returnToUrl: $('#rpmLimitLink').attr('href'),
+                dialog: {
+                    title: 'Add RPM Limit',
+                    message: 'Adding RPM Limit',
+                    errorMessage: 'Error occured while adding RPM Limit.'
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+

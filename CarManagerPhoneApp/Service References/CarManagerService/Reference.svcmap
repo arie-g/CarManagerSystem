@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="61d4710d-f364-486f-8b63-280786b20830" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://carmanagercloud.cloudapp.net/CarManagerApi.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CarManagerApi1.wsdl" MetadataType="Wsdl" ID="706e3f9e-8f18-4b90-ab6c-e93e93c7bc97" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?wsdl" />
+    <MetadataFile FileName="CarManagerApi1.disco" MetadataType="Disco" ID="c7655288-2657-4373-80ca-d5d58a771024" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?disco" />
+    <MetadataFile FileName="CarManagerApi.xsd" MetadataType="Schema" ID="69ddcc4e-3e0c-4c5d-8c04-e7f010f80c53" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd4" />
+    <MetadataFile FileName="CarManagerApi1.xsd" MetadataType="Schema" ID="5893a8a2-ce22-46e2-8790-24518f89681c" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd5" />
+    <MetadataFile FileName="CarManagerApi4.xsd" MetadataType="Schema" ID="72ef103a-b578-4fbc-8a37-658a688f7d90" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd0" />
+    <MetadataFile FileName="CarManagerApi41.xsd" MetadataType="Schema" ID="3ba20dc1-d3f0-4f7d-9678-409cd7bcdd53" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd1" />
+    <MetadataFile FileName="CarManagerApi42.xsd" MetadataType="Schema" ID="1a51e984-3d5d-4997-9c36-57c083e7c52d" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd2" />
+    <MetadataFile FileName="CarManagerApi43.xsd" MetadataType="Schema" ID="4006ab4e-f935-47c9-a2a3-c382ea0db035" SourceId="1" SourceUrl="http://carmanagercloud.cloudapp.net/CarManagerApi.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

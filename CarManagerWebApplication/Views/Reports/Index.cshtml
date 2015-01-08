@@ -1,0 +1,53 @@
+﻿@model CarManagerWebApplication.Models.WrapReportModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+    <h4>
+        @string.Format("Create custom report for driver and car")
+    </h4>
+@using (Html.BeginForm("Save", "EngineTempLimit", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "submitForm" }))
+{
+    <h3>Please select a driver and a car.</h3>
+    <div class="form-horizontal">
+        <div class="well bs-component">
+            <fieldset>
+                <div class="form-group">
+                    <label for="drivers" class="col-lg-2 control-label">Drivers</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(model => model.SelectedDrivers, new MultiSelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Cars" class="col-lg-2 control-label">Cars</label>
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(model => model.SelectedCars, new MultiSelectList(Model.Cars, "Id", "Model"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="StartTime" class="col-lg-2 control-label">Start Time</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", @placeholder = "Start Time", @Value = Model.StartTime.ToString("H:mm") })
+                        @Html.ValidationMessageFor(model => model.StartTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="EndTime" class="col-lg-2 control-label">End Time</label>
+                    <div class="col-lg-10">
+                        @Html.TextBoxFor(model => model.EndtTime, new { @class = "form-control", @placeholder = "End Time", @Value = Model.EndtTime.ToString("H:mm") })
+                        @Html.ValidationMessageFor(model => model.EndtTime)
+                    </div>
+                </div>
+                </fieldset>
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <input type="submit" value="Generate Report" id="Generate" class="btn btn-primary" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+        }

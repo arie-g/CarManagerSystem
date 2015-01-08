@@ -1,0 +1,239 @@
+﻿@using System.Web.Mvc.Html 
+@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Car Manager Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/flatly/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.uitablefilter.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-dialog.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-dialog.css")" />
+
+
+    <script>
+    var trueString = '@Boolean.TrueString';
+
+    $.extend({
+        alert: function (message, title) {
+            //BootstrapDialog.show({
+            //    title: title,
+            //    message: message
+            //});
+
+            BootstrapDialog.alert({
+                title: title,
+                message: message
+            });
+
+        },
+        SaveDataOnFormSubmit: function (inputData) {
+            var saveDialogInstance = new BootstrapDialog({
+                title: inputData.dialog.title,
+                message: inputData.dialog.message,
+                type: BootstrapDialog.TYPE_PRIMARY,
+                buttons: [{
+                    id: 'btnOK',
+                    label: "Saving",
+                    cssClass: 'btn-primary',
+                    action: function (dialog) {
+                        var $button = this;
+                        $button.disable();
+                        $button.spin();
+                        var url = inputData.returnToUrl;
+                        window.location.href = url;
+                    }
+                }, {
+                    id: 'btnClose',
+                    label: "Close",
+                    cssClass: 'btn-primary',
+                    action: function (dialogItself) {
+                        dialogItself.close();
+                    }
+                }]
+            });
+            
+            saveDialogInstance.open();
+            
+            var $buttonOK = saveDialogInstance.getButton('btnOK');
+            var $buttonClose = saveDialogInstance.getButton('btnClose');
+            $buttonClose.hide();
+            $buttonOK.spin();
+            $buttonOK.disable();
+            saveDialogInstance.setClosable(false);
+
+            var form = inputData.form;
+
+            $.ajax({
+                cache: false,
+                async: true,
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    saveDialogInstance.setClosable(true);
+                    saveDialogInstance.setMessage(data);
+                    saveDialogInstance.setType(BootstrapDialog.TYPE_SUCCESS);
+
+                    $buttonOK.text('OK');
+                    $buttonOK.stopSpin();
+                    $buttonOK.enable();
+                },
+                error: function (xhr, textStatus, error) {
+                    saveDialogInstance.setClosable(true)
+                    saveDialogInstance.setMessage(inputData.dialog.errorMessage + "\n" + xhr.responseText);
+                    saveDialogInstance.setType(BootstrapDialog.TYPE_DANGER);
+
+                    $buttonClose.show();
+                    $buttonOK.hide();
+                }
+            });
+        },
+        RemoveDataFromTable: function (inputData) {
+
+            var deleteLinkObj = inputData.deleteLinkObj;
+
+            var deleteDialogInstance = new BootstrapDialog({
+                title: inputData.title, 
+                message: inputData.message,
+                type: BootstrapDialog.TYPE_PRIMARY,
+                buttons: [{
+                    id: 'btnCancel',
+
+                    label: "Cancel",
+                    action: function (dialogItself) {
+                        dialogItself.close();
+                    }
+                }, {
+                    id: 'btnContinue',
+                    label: "Continue",
+                    cssClass: 'btn-primary',
+                    action: function (dialog) {
+                        var $button = dialog.getButton('btnContinue');
+                        var $buttonCancel = dialog.getButton('btnCancel');
+
+                        $buttonCancel.hide();
+
+                        dialog.setClosable(false);
+
+                        $button.disable();
+                        $button.spin();
+                        $.post(deleteLinkObj[0].href, function (data) {  
+                            $button.stopSpin();
+                            if (data == trueString) {
+
+                                deleteLinkObj.closest("tr").hide('fast');
+
+                                dialog.setMessage(inputData.successMessage);
+                                dialog.setType(BootstrapDialog.TYPE_SUCCESS);
+                            }
+                            else {
+                                dialog.setMessage(inputData.errorMessage);
+                                dialog.setType(BootstrapDialog.TYPE_DANGER);
+
+                            }
+
+                            dialog.setClosable(true);
+                            $button.enable();
+                            $button.on('click', { dialog: dialog }, function (event) {
+                                event.data.dialog.close();
+                            }).text('Close');
+
+                        }).fail(function (data) {
+                            $button.stopSpin();
+                            dialog.setMessage(inputData.errorMessage);
+                            dialog.setType(BootstrapDialog.TYPE_DANGER);
+
+                            $button.setClosable(true);
+                            $button.enable();
+                            $button.on('click', { dialog: dialog }, function (event) {
+                                event.data.dialog.close();
+                            });
+                        });
+                    }
+                }]
+            });
+
+            deleteDialogInstance.open();
+        }
+    });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Car Manager</a>
+
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                        @Html.Partial("_LoginPartial")
+                       
+                    
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    @if (UsersManager.IsAdmin(WebSecurity.CurrentUserId, HttpContext.Current)) { 
+                        <li>@Html.ActionLink("Wating for approve", "Index", "WaitingForApprove")</li>  
+                    }
+
+                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navigate <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Driver Waiting For Approve","Index","WaitingForApprove")</li>
+                            <li>@Html.ActionLink("Cars", "Index", "Cars")</li>
+                            <li>@Html.ActionLink("Drivers", "Index", "Drivers")</li>
+                            <li>@Html.ActionLink("Manage cars to drivers", "Index", "CarsToDriver")</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Manage Restrictions</li>
+                            <li>@Html.ActionLink("Time Restrications", "Index", "TimeRestriction")</li>
+                            <li>@Html.ActionLink("Day Restrications", "Index", "DayRestriction")</li>
+                            <li>@Html.ActionLink("RPM Limit", "Index", "RPMLimit")</li>
+                            <li>@Html.ActionLink("Speed Limit", "Index", "SpeedLimit")</li>
+                            <li>@Html.ActionLink("Engine Temperature Limit", "Index", "EngineTempLimit")</li>
+                        </ul>
+                    </li>
+                  
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Companies <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var company in RoleService.GetCompaniesByUserId(WebSecurity.CurrentUserId))
+                            {
+                                <li><a href="/@company.Name/Drivers">@company.Name</a></li>
+                            }
+                           
+                        </ul>
+                    </li>
+                </ul>
+               
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix container">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper footer  text-center">
+            <div>
+                <p>&copy; @DateTime.Now.Year - CarManager Web Site</p>
+            </div>
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

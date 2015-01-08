@@ -1,0 +1,85 @@
+﻿@model List<CarManagerWebApplication.Models.WrapEngineTempLimit>
+
+    @{
+        Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    }
+
+
+    <div class="col-lg-4">
+        <input class="form-control input-sm" type="text" id="filterString" placeholder="Filter Table">
+    </div>
+
+
+
+    <table class="table table-striped table-hover " id="engineRestTbl">
+        <thead>
+            <tr>
+                <th>Car Model</th>
+                <th>Driver Name</th>
+                <th>Warning Limit</th>
+                <th>Warning Max Times</th>
+                <th>Punishment Limit</th>
+                <th>Punishment Max Times</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Driver.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EngineTempLimit.WarningLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EngineTempLimit.MaxtBrokeWarningLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EngineTempLimit.PunishmentLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EngineTempLimit.MaxtBrokePunishmentLimit)
+                </td>
+                <td>
+                    <ul class="breadcrumb pull-right" style="padding-bottom:0px;padding-top:0px; margin-bottom:0px">
+
+                        @Html.ActionLink("Remove", "Remove", new { id = item.EngineTempLimit.CarToDriverId }, new { @class = "delete-link" })
+                    </ul>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+               @Html.ActionLink("Add Engine Temp Limit", "Add")
+
+    <script>
+        $(document).ready(function () {
+            // delete Link
+            $('.delete-link').click(function () {
+                $.RemoveDataFromTable({
+                    title: 'Remove speed limit',
+                    message: 'Are you sure you want to remove this Engine temp Limit?',
+                    successMessage: 'Speed limit removed successfully',
+                    errorMessage: 'Error removing speed limit',
+                    deleteLinkObj: $(this)
+                });
+
+                return false;
+            });
+
+            var driversTable = $('#engineRestTbl')
+
+            $("#filterString").keyup(function () {
+                $.uiTableFilter(driversTable, this.value, ["Car Model", "Driver Name"]);
+            })
+        });
+    </script>
+
+
+

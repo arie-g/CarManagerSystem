@@ -1,0 +1,17 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_ICarManagerApi" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://carmanagercloud.cloudapp.net/CarManagerApi.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ICarManagerApi"
+                contract="CarManagerService.ICarManagerApi" name="BasicHttpBinding_ICarManagerApi" />
+        </client>
+    </system.serviceModel>
+</configuration>

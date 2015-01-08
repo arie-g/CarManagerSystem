@@ -1,0 +1,18 @@
+﻿@using System.Web.Mvc.Html
+@model CarManagerWebApplication.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in using Facebook";
+    Layout = "~/Views/Shared/_layoutLogin.cshtml";
+}
+<br />
+<br />
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+
+
+<section class="social" id="socialLoginForm">
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>

@@ -1,0 +1,52 @@
+﻿@model List<Dal.Car>
+
+    @{
+        Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    }
+
+    <div class="col-lg-4">
+        @*<div class=" form-group">
+        *@
+        <input class="form-control input-sm" type="text" id="filterString" placeholder="Filter Table">
+        @*</div>*@
+    </div>
+    <table class="table table-striped table-hover " id="carsTbl">
+        <thead>
+            <tr style="font-size:18px">
+                <th>Car License Number</th>
+                <th>Model</th>
+                <th>Last Car Imubilaizer Update</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastPermissionUpdate)
+                </td>   
+                <td>
+                    <ul class="breadcrumb pull-right" style="padding-bottom:0px;padding-top:0px; margin-bottom:0px">
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.ActionLink("Add New Car", "Edit")
+    <script>
+        $(document).ready(function () {
+            var driversTable = $('#carsTbl')
+
+            $("#filterString").keyup(function () {
+                $.uiTableFilter(driversTable, this.value, ["Car License Number", "Model"]);
+            })
+        });
+    </script>
+
+
